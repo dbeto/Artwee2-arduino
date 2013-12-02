@@ -1,0 +1,107 @@
+Arduino Code: 
+
+const int ledPin = 13; // the pin that the LED is attached to
+int randomPin1; // a variable to read incoming serial data into
+int randomPin2;
+int randTime;
+
+int pin =10;
+int pin2=11;
+int debug = 13;
+
+/*
+char incomingByte =0;
+int g;
+int b;
+int r;
+*/
+
+void setup() {
+// initialize serial communication:
+Serial.begin(115200);
+
+pinMode(10, OUTPUT);
+pinMode(11, OUTPUT);
+pinMode(debug, OUTPUT);
+
+pinMode(6, OUTPUT);
+pinMode(5, OUTPUT);
+pinMode(3, OUTPUT);
+}
+
+void loop() {
+
+//analogWrite (6, 255 -r);
+//analogWrite (5, 255 -g);
+//analogWrite (3, 255 -b);
+
+// see if there's incoming serial data:
+if (Serial.available() > 0) {
+
+//HERE
+//digitalWrite(debug, HIGH);
+
+// read the oldest byte in the serial buffer:
+randomPin1 = Serial.read();
+randomPin2 = Serial.read();
+//incomingByte = Serial.read();
+
+if (randomPin1 == 1){
+digitalWrite(10, HIGH);
+digitalWrite(11, LOW);
+//digitalWrite(8, HIGH);
+//digitalWrite(7, HIGH);
+}
+
+if (randomPin1 == 2){
+digitalWrite(11, HIGH);
+digitalWrite(10, LOW);
+}
+
+if (randomPin1 == 0){
+digitalWrite(11, HIGH);
+digitalWrite(10, HIGH);
+}
+
+
+if (randomPin2 >=30){
+digitalWrite(11, LOW);
+digitalWrite(10, HIGH);
+}
+
+if (randomPin2 >=20 && randomPin2 <=30){
+digitalWrite(11, HIGH);
+digitalWrite(10, LOW);
+} 
+
+if (randomPin2 >=10 && randomPin2 <=20){
+digitalWrite(11, LOW);
+digitalWrite(10, HIGH);
+} 
+
+// if it's an L (ASCII 76) turn off the LED:
+if (randomPin1 == 'L') {
+
+digitalWrite(11, LOW);
+digitalWrite(10, LOW);
+}
+
+/*
+if (incomingByte == 'H') {
+r= 0;
+g=0;
+b = 255;
+}
+if (incomingByte == 'L') {
+b = 0;
+r=0;
+g=0;
+}
+*/
+Serial.print(randomPin1);
+//delay(100);
+//digitalWrite(debug, LOW);
+
+}
+
+}
